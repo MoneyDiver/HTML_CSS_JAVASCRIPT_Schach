@@ -27,52 +27,38 @@ function FigurenSetzten() {
                     case 0:
                         figur.setAttribute("src", "/Figuren/TurmWeiss.png");
                         figur.setAttribute("alt", "Turm Weiß");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 1:
                         figur.setAttribute("src", "/Figuren/SpringerWeiss.png");
                         figur.setAttribute("alt", "Springer Weiß");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 2:
                         figur.setAttribute("src", "/Figuren/LaeuferWeiss.png");
                         figur.setAttribute("alt", "Läufer Weiß");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 3:
                         figur.setAttribute("src", "/Figuren/KoenigWeiss.png");
                         figur.setAttribute("alt", "König Weiß");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 4:
                         figur.setAttribute("src", "/Figuren/DameWeiss.png");
                         figur.setAttribute("alt", "Dame Weiß");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 5:
                         figur.setAttribute("src", "/Figuren/LaeuferWeiss.png");
                         figur.setAttribute("alt", "Läufer Weiß");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 6:
                         figur.setAttribute("src", "/Figuren/SpringerWeiss.png");
                         figur.setAttribute("alt", "Springer Weiß");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 7:
                         figur.setAttribute("src", "/Figuren/TurmWeiss.png");
                         figur.setAttribute("alt", "Turm Weiß");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                 }
+                figur.setAttribute("width", parrent.clientWidth);
+                parrent.appendChild(figur);
             }
         }
         else if(r == 1) {
@@ -103,52 +89,38 @@ function FigurenSetzten() {
                     case 0:
                         figur.setAttribute("src", "/Figuren/TurmSchwarz.png");
                         figur.setAttribute("alt", "Turm Schwarz");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 1:
                         figur.setAttribute("src", "/Figuren/SpringerSchwarz.png");
                         figur.setAttribute("alt", "Springer Schwarz");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 2:
                         figur.setAttribute("src", "/Figuren/LaeuferSchwarz.png");
                         figur.setAttribute("alt", "Läufer Schwarz");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 3:
                         figur.setAttribute("src", "/Figuren/DameSchwarz.png");
                         figur.setAttribute("alt", "Dame Schwarz");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 4:
                         figur.setAttribute("src", "/Figuren/KoenigSchwarz.png");
                         figur.setAttribute("alt", "König Schwarz");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 5:
                         figur.setAttribute("src", "/Figuren/LaeuferSchwarz.png");
                         figur.setAttribute("alt", "Läufer Schwarz");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 6:
                         figur.setAttribute("src", "/Figuren/SpringerSchwarz.png");
                         figur.setAttribute("alt", "Springer Schwarz");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                     case 7:
                         figur.setAttribute("src", "/Figuren/TurmSchwarz.png");
                         figur.setAttribute("alt", "Turm Schwarz");
-                        figur.setAttribute("width", parrent.clientWidth);
-                        parrent.appendChild(figur);
                     break;
                 }
+                figur.setAttribute("width", parrent.clientWidth);
+                parrent.appendChild(figur);
             }
         }
     }
