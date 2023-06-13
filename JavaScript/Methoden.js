@@ -145,5 +145,8 @@ function EventListenerSetzten() {
 }
 
 function ZugOptionBestimmen(Figur) {
-    alert(Figur);
+    let figurType = Figur.split(" ")[0];
+    let figurFarbe = Figur.split(" ")[1];
+
+
 }
