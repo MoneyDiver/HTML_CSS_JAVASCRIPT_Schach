@@ -184,6 +184,7 @@ function ZugDurchfuehren(feld, zugOptionen = []) {
     }
 }
 
+// TODO: Schlagoptionen ergänzen
 function ZugOptionenBauer(row, col, color) {
     let moeglicheZuege = [];
     let i = 0;
