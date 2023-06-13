@@ -137,16 +137,41 @@ function EventListenerSetzten() {
                 let feld = document.getElementById("sfr" + r + "sfc" + c);
                 let imgElement = feld.querySelector("img");
                 imgElement.addEventListener("click", function() {
-                    ZugOptionBestimmen(imgElement.alt);
+                    ZugOptionBestimmen(imgElement.alt, feld);
                 });
             }
         }
     }
 }
 
-function ZugOptionBestimmen(Figur) {
+function ZugOptionBestimmen(Figur, feld) {
     let figurType = Figur.split(" ")[0];
     let figurFarbe = Figur.split(" ")[1];
 
+    if(figurFarbe == "Weiß") {
+        // rowNr ermitteln
+        let row = feld.id[3];
+        // colNr ermitteln
+        let col = feld.id[7];
+        switch (figurType) {
+            case "Turm":
+                return ZugOptionenTurm(row, col);
+            case "Springer":
+            
+            break;
+        } 
+    }
+    else {
 
+    }
+}
+
+function ZugOptionenTurm(row, col) {
+    let moeglicheZuege = [];
+    let i = 0;
+    // Mögliche Zuege in der Zeile ermitteln
+    for(let c = 0; c < 8; c++) {
+        
+    }
+    return moeglicheZuege;
 }
