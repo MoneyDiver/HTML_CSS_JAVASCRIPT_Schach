@@ -130,6 +130,8 @@ function FigurenSetzten() {
     }
 }
 
+// TODO: Überarbeiten damit nur felder mit img-Element den richtigen Eventlistener erhalten
+//       bei allen Anderen soll der Eventlistener entfernt werden (removeEventListener)
 function EventListenerSetzten() {
     for(let r = 0; r < 8; r++) {
         for(let c = 0; c < 8; c++) {
@@ -153,9 +155,15 @@ function ZugOptionBestimmen(Figur, feld) {
         let row = feld.id[3];
         // colNr ermitteln
         let col = feld.id[7];
+        let zugOptionen = [];
         switch (figurType) {
+            case "Bauer":
+                zugOptionen = ZugOptionenBauer(row, col, figurFarbe);
+                ZugDurchfuehren(feld, zugOptionen);
+            break;
             case "Turm":
-                return ZugOptionenTurm(row, col);
+                zugOptionen = ZugOptionenTurm(row, col, figurFarbe);
+                ZugDurchfuehren(feld, zugOptionen);
             case "Springer":
             
             break;
@@ -166,12 +174,96 @@ function ZugOptionBestimmen(Figur, feld) {
     }
 }
 
-function ZugOptionenTurm(row, col) {
+function ZugDurchfuehren(feld, zugOptionen = []) {
+    for(let i = 0; i < zugOptionen.length; i++) {
+        let leeresFeld = document.getElementById(zugOptionen[i]);
+        leeresFeld.addEventListener("click", function() {
+            let figur = feld.querySelector("img");
+            this.appendChild(figur);
+        });
+    }
+}
+
+function ZugOptionenBauer(row, col, color) {
     let moeglicheZuege = [];
     let i = 0;
-    // Mögliche Zuege in der Zeile ermitteln
-    for(let c = 0; c < 8; c++) {
-        
+    if(row == 1 && color == "Weiß") {
+        row++;
+        moeglicheZuege[i] = "sfr" + row + "sfc" + col;
+        i++;
+        row++;
+        moeglicheZuege[i] = "sfr" + row + "sfc" + col;
+        i++;
+    }
+    return moeglicheZuege;
+}
+
+function ZugOptionenTurm(row, col, color) {
+    let moeglicheZuege = [];
+    let i = 0;
+    if(col-1 > 0) {
+        // Mögliche Zuege links von der Figur eritteln
+        for(let c = col; c >= 0; c--) {
+            let feld = document.getElementById("sfr" + row + "sfc" + c);
+            if(feld.hasChildNodes() == null) {
+                moeglicheZuege[i] = "sfr" + row + "sfc" + c;
+                i++;
+            } else {
+                if(feld.querySelector("img").alt.split(" ")[1] != color) {
+                    moeglicheZuege[i] = "sfr" + row + "sfc" + c;
+                    i++;
+                }
+                break;
+            }
+        }
+    }
+    if(col+1 < 8) {
+        // Mögliche Zuege links von der Figur eritteln
+        for(let c = col; c < 8; c++) {
+            let feld = document.getElementById("sfr" + row + "sfc" + c);
+            if(feld.hasChildNodes() == null) {
+                moeglicheZuege[i] = "sfr" + row + "sfc" + c;
+                i++;
+            } else {
+                if(feld.querySelector("img").alt.split(" ")[1] != color) {
+                    moeglicheZuege[i] = "sfr" + row + "sfc" + c;
+                    i++;
+                }
+                break;
+            }
+        }
+    }
+    if(row-1 > 0) {
+        // Mögliche Zuege über von der Figur eritteln
+        for(let r = row; r >= 0; r--) {
+            let feld = document.getElementById("sfr" + r + "sfc" + col);
+            if(feld.hasChildNodes() == null) {
+                moeglicheZuege[i] = "sfr" + r + "sfc" + col;
+                i++;
+            } else {
+                if(feld.querySelector("img").alt.split(" ")[1] != color) {
+                    moeglicheZuege[i] = "sfr" + r + "sfc" + col;
+                    i++;
+                }
+                break;
+            }
+        }
+    }
+    if(row+1 < 8) {
+        // Mögliche Zuege unter der Figur eritteln
+        for(let r = row; r < 8; r++) {
+            let feld = document.getElementById("sfr" + r + "sfc" + col);
+            if(feld.hasChildNodes() == null) {
+                moeglicheZuege[i] = "sfr" + r + "sfc" + col;
+                i++;
+            } else {
+                if(feld.querySelector("img").alt.split(" ")[1] != color) {
+                    moeglicheZuege[i] = "sfr" + r + "sfc" + col;
+                    i++;
+                }
+                break;
+            }
+        }
     }
     return moeglicheZuege;
 }
