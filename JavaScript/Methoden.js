@@ -133,15 +133,28 @@ function FigurenSetzten() {
 // TODO: Überarbeiten damit nur felder mit img-Element den richtigen Eventlistener erhalten
 //       bei allen Anderen soll der Eventlistener entfernt werden (removeEventListener)
 function EventListenerSetzten() {
+    RemoveAllEventListener();
     for(let r = 0; r < 8; r++) {
         for(let c = 0; c < 8; c++) {
-            if(r == 0 || r == 1 || r == 6 || r == 7) {
-                let feld = document.getElementById("sfr" + r + "sfc" + c);
-                let imgElement = feld.querySelector("img");
+            let feld = document.getElementById("sfr" + r + "sfc" + c);
+            let imgElement = feld.querySelector("img");
+            if(imgElement != null) {
                 imgElement.addEventListener("click", function() {
-                    ZugOptionBestimmen(imgElement.alt, feld);
+                    let zugOptionen = [];
+                    zugOptionen = ZugOptionBestimmen(imgElement.alt, imgElement.parentElement);
+                    ZügeVerfügbarMachen(imgElement.parentElement, zugOptionen);
                 });
             }
+        }
+    }
+}
+
+// Löscht alle Click Events
+function RemoveAllEventListener() {
+    for(let r = 0; r < 8; r++) {
+        for(let c = 0; c < 8; c++) {
+            let feld = document.getElementById("sfr" + r + "sfc" + c);
+            feld.removeEventListener("click", null);
         }
     }
 }
@@ -155,15 +168,11 @@ function ZugOptionBestimmen(Figur, feld) {
         let row = feld.id[3];
         // colNr ermitteln
         let col = feld.id[7];
-        let zugOptionen = [];
         switch (figurType) {
             case "Bauer":
-                zugOptionen = ZugOptionenBauer(row, col, figurFarbe);
-                ZugDurchfuehren(feld, zugOptionen);
-            break;
+                return ZugOptionenBauer(row, col, figurFarbe);
             case "Turm":
-                zugOptionen = ZugOptionenTurm(row, col, figurFarbe);
-                ZugDurchfuehren(feld, zugOptionen);
+                return ZugOptionenTurm(row, col, figurFarbe);
             case "Springer":
             
             break;
@@ -174,14 +183,18 @@ function ZugOptionBestimmen(Figur, feld) {
     }
 }
 
-function ZugDurchfuehren(feld, zugOptionen = []) {
+function ZügeVerfügbarMachen(feld, zugOptionen = []) {
     for(let i = 0; i < zugOptionen.length; i++) {
         let leeresFeld = document.getElementById(zugOptionen[i]);
         leeresFeld.addEventListener("click", function() {
-            let figur = feld.querySelector("img");
-            this.appendChild(figur);
+            ZugDurchführen(leeresFeld, feld);
         });
     }
+}
+
+function ZugDurchführen(ziel, ausgangspunkt) {
+    ziel.appendChild(ausgangspunkt.querySelector("img"));
+    EventListenerSetzten();
 }
 
 // TODO: Schlagoptionen ergänzen
