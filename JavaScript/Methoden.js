@@ -182,6 +182,7 @@ function ZugDurchfuehren(feld, zugOptionen = []) {
             this.appendChild(figur);
         });
     }
+    EventListenerSetzten();
 }
 
 // TODO: Schlagoptionen ergänzen
