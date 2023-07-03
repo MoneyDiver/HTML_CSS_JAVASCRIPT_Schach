@@ -143,6 +143,8 @@ function EventListenerSetzten() {
                     let zugOptionen = [];
                     zugOptionen = ZugOptionBestimmen(imgElement.alt, imgElement.parentElement);
                     ZügeVerfügbarMachen(imgElement.parentElement, zugOptionen);
+                    zugOptionen = null;
+                    EventListenerSetzten();
                 });
             }
         }
@@ -190,12 +192,10 @@ function ZügeVerfügbarMachen(feld, zugOptionen = []) {
             ZugDurchführen(leeresFeld, feld);
         });
     }
-    EventListenerSetzten();
 }
 
 function ZugDurchführen(ziel, ausgangspunkt) {
     ziel.appendChild(ausgangspunkt.querySelector("img"));
-    EventListenerSetzten();
 }
 
 // TODO: Schlagoptionen ergänzen
