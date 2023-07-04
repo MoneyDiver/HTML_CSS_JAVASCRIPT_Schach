@@ -14,28 +14,34 @@ class Figur {
         this.ImgPath = imgPath;
         this.AktPos = aktPos;
         this.Show(this.AktPos);
+        this.EventListenerSetzten();
     }
 
     // Zeigt das Element auf dem Spiefeld an
-    Show(zielID) {
-        if(this.AktPos != "") {
-            document.getElementById(this.AktPos).firstChild = null;
-        }            
+    Show(zielID) {      
         let imgElement = document.createElement("img");
         imgElement.setAttribute("src", this.ImgPath);
-        document.getElementById(ZielID).appendChild(imgElement);
+        let parrentElement = document.getElementById(zielID);
+        imgElement.setAttribute("width", parrentElement.clientWidth);
+        parrentElement.appendChild(imgElement); 
     }
 
     // Setzten den Eventlistener
     EventListenerSetzten() {
-        document.getElementById(this.AktPos).firstChild.addEventListener("click", function() {
+        document.getElementById(this.AktPos).firstChild.addEventListener("click", () => {
             this.ErmittleZugoptionen();
         });
     }
 }
 
 class Turm extends Figur{
+    constructor(color, imgPath, aktPos) {
+        super(color, imgPath, aktPos);
+    }
 
+    ErmittleZugoptionen() {
+        
+    }
 }
 //#endregion
 
@@ -62,7 +68,10 @@ function SpielfeldErzeugen(id) {
     }
 }
 
-let Figuren = [new Turm("Weiß", "/Figuren/TurmWeiss.png", "srf0sfc0"), new Turm("Weiß", "/Figuren/TurmWeiss.png", "srf0sfc7")];
+document.addEventListener("DOMContentLoaded", function() {
+    let Figuren = [new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc0"), new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc7")];
+});
+let Figuren = [new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc0"), new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc7")];
 
 // function FigurenSetzten() {
 //     for(let r = 0; r < 8; r++) {
