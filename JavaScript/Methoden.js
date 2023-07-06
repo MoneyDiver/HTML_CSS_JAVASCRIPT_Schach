@@ -8,11 +8,14 @@ class Figur {
     AktPos = "";
     // Zeigt an ob die Figur noch Spielbar ist oder bereits geschlagen wurde
     Geschlagen = false;
+    // Liste aller erbenden ELemente
+    static ListeAllerErbendenFiguren = new Array();
 
     constructor(color, imgPath, aktPos) {
         this.color = color;
         this.ImgPath = imgPath;
         this.AktPos = aktPos;
+        Figur.ListeAllerErbendenFiguren.push(this);
         this.Show(this.AktPos);
         this.EventListenerSetzten();
     }
@@ -22,8 +25,8 @@ class Figur {
         let imgElement = document.createElement("img");
         imgElement.setAttribute("src", this.ImgPath);
         let parrentElement = document.getElementById(zielID);
-        imgElement.setAttribute("width", parrentElement.clientWidth);
-        parrentElement.appendChild(imgElement); 
+        parrentElement.appendChild(imgElement);
+        parrentElement.querySelector("img").setAttribute("width", parrentElement.clientWidth);
     }
 
     // Setzten den Eventlistener
@@ -40,7 +43,91 @@ class Turm extends Figur{
     }
 
     ErmittleZugoptionen() {
-        
+        let möglicheZüge = new Array();
+        // Nach Rechts prüfen
+        for (let c = Number(this.AktPos[7]) + 1; c < 8; c++) {
+            let id = "sfr" + this.AktPos[3] + "sfc" + c;
+            let eintragBereitsGefunden = false;
+            for (let i = 0; i < Figur.ListeAllerErbendenFiguren.length; i++) {
+                let f = Figur.ListeAllerErbendenFiguren[i];
+                if (f.AktPos == id) {
+                    if (f.Color != this.Color) {
+                        eintragBereitsGefunden = true;
+                        möglicheZüge.push(id);
+                        break;
+                    } else {
+                        eintragBereitsGefunden = true;
+                        break;
+                    }
+                }
+            }
+            if (!eintragBereitsGefunden) {
+                möglicheZüge.push(id);
+            }
+        }
+        // Nach links prüfen
+        for (let c = Number(this.AktPos[7]) - 1; c > 0; c--) {
+            let id = "sfr" + this.AktPos[3] + "sfc" + c;
+            let eintragBereitsGefunden = false;
+            for (let i = 0; i < Figur.ListeAllerErbendenFiguren.length; i++) {
+                let f = Figur.ListeAllerErbendenFiguren[i];
+                if (f.AktPos == id) {
+                    if (f.Color != this.Color) {
+                        eintragBereitsGefunden = true;
+                        möglicheZüge.push(id);
+                        break;
+                    } else {
+                        eintragBereitsGefunden = true;
+                        break;
+                    }
+                }
+            }
+            if (!eintragBereitsGefunden) {
+                möglicheZüge.push(id);
+            }
+        }
+        // Nach Unten prüfen
+        for (let r = Number(this.AktPos[3]) + 1; r < 8; r++) {
+            let id = "sfr" + r + "sfc" + this.AktPos[7];
+            let eintragBereitsGefunden = false;
+            for (let i = 0; i < Figur.ListeAllerErbendenFiguren.length; i++) {
+                let f = Figur.ListeAllerErbendenFiguren[i];
+                if (f.AktPos == id) {
+                    if (f.Color != this.Color) {
+                        eintragBereitsGefunden = true;
+                        möglicheZüge.push(id);
+                        break;
+                    } else {
+                        eintragBereitsGefunden = true;
+                        break;
+                    }
+                }
+            }
+            if (!eintragBereitsGefunden) {
+                möglicheZüge.push(id);
+            }
+        }
+        // Nach Open prüfen
+        for (let r = Number(this.AktPos[3]) - 1; r > 0; r--) {
+            let id = "sfr" + r + "sfc" + this.AktPos[7];
+            let eintragBereitsGefunden = false;
+            for (let i = 0; i < Figur.ListeAllerErbendenFiguren.length; i++) {
+                let f = Figur.ListeAllerErbendenFiguren[i];
+                if (f.AktPos == id) {
+                    if (f.Color != this.Color) {
+                        eintragBereitsGefunden = true;
+                        möglicheZüge.push(id);
+                        break;
+                    } else {
+                        eintragBereitsGefunden = true;
+                        break;
+                    }
+                }
+            }
+            if (!eintragBereitsGefunden) {
+                möglicheZüge.push(id);
+            }
+        }
     }
 }
 //#endregion
@@ -68,10 +155,9 @@ function SpielfeldErzeugen(id) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function() {
     let Figuren = [new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc0"), new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc7")];
 });
-let Figuren = [new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc0"), new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc7")];
 
 // function FigurenSetzten() {
 //     for(let r = 0; r < 8; r++) {
