@@ -32,8 +32,20 @@ class Figur {
     // Setzten den Eventlistener
     EventListenerSetzten() {
         document.getElementById(this.AktPos).firstChild.addEventListener("click", () => {
-            this.ErmittleZugoptionen();
+            let zugOptionen = this.ErmittleZugoptionen();
+            this.ZugoptionenVerfügbarMachen(zugOptionen);
+            
         });
+    }
+    // Klickevents bei den Zugoptionen Setzten
+    ZugoptionenVerfügbarMachen(zugOptionen = []) {
+        for(let i = 0; i < zugOptionen.length; i++) {
+            let feld = document.getElementById(zugOptionen[i]);
+            feld.setAttribute("style", "background-color:red");
+            feld.addEventListener("click", function() {
+                // TODO: Methode hinzufügen, die den Zug druchführbar macht
+            });
+        }
     }
 }
 
@@ -128,6 +140,8 @@ class Turm extends Figur{
                 möglicheZüge.push(id);
             }
         }
+
+        return möglicheZüge;
     }
 }
 //#endregion
