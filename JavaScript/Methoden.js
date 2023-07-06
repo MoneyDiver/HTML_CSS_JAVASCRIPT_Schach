@@ -34,7 +34,6 @@ class Figur {
         document.getElementById(this.AktPos).firstChild.addEventListener("click", () => {
             let zugOptionen = this.ErmittleZugoptionen();
             this.ZugoptionenVerfügbarMachen(zugOptionen);
-            
         });
     }
     // Klickevents bei den Zugoptionen Setzten
@@ -44,6 +43,7 @@ class Figur {
             feld.setAttribute("style", "background-color:red");
             feld.addEventListener("click", function() {
                 // TODO: Methode hinzufügen, die den Zug druchführbar macht
+                // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
             });
         }
     }
