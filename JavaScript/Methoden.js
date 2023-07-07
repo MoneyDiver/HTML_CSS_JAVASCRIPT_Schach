@@ -10,12 +10,13 @@ class Figur {
     Geschlagen = false;
     // Liste aller erbenden ELemente
     static ListeAllerErbendenFiguren = new Array();
-
+    // Index des aktuellen Elements in dem Array ListeAllerErbendenFiguren
+    Index = 0
     constructor(color, imgPath, aktPos) {
         this.color = color;
         this.ImgPath = imgPath;
         this.AktPos = aktPos;
-        Figur.ListeAllerErbendenFiguren.push(this);
+        this.Index = Figur.ListeAllerErbendenFiguren.push(this);
         this.Show(this.AktPos);
         this.EventListenerSetzten();
     }
@@ -36,16 +37,29 @@ class Figur {
             this.ZugoptionenVerfügbarMachen(zugOptionen);
         });
     }
+
     // Klickevents bei den Zugoptionen Setzten
     ZugoptionenVerfügbarMachen(zugOptionen = []) {
         for(let i = 0; i < zugOptionen.length; i++) {
             let feld = document.getElementById(zugOptionen[i]);
             feld.setAttribute("style", "background-color:red");
-            feld.addEventListener("click", function() {
-                // TODO: Methode hinzufügen, die den Zug druchführbar macht
-                // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
+            feld.addEventListener("click", () => {
+                this.ZugDurchführen(feld);// TODO: Methode hinzufügen, die den Zug druchführbar macht
+                this.RemoveEventListnerVonZugoptionen(zugOptionen); // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
             });
         }
+    }
+
+    // Zug druchführen
+    ZugDurchführen(feld) {
+        document.getElementById(this.AktPos).removeChild(document.getElementById(this.AktPos).firstChild);
+        this.AktPos = feld.id;
+        feld.appendChild(this.Show(this.AktPos));
+    }   
+
+    // Entfernt die Cick-Events von den Zugoptionen
+    RemoveEventListnerVonZugoptionen(zugOptionen = []) {
+
     }
 }
 
