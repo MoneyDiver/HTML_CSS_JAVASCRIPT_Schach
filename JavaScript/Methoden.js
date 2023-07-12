@@ -36,6 +36,7 @@ class Figur {
         imgElement.setAttribute("height", this.ImgHeight);
         let parrentElement = document.getElementById(zielID);
         parrentElement.appendChild(imgElement);
+        return imgElement;
     }
 
     // Setzten den Eventlistener
@@ -51,11 +52,13 @@ class Figur {
         for(let i = 0; i < zugOptionen.length; i++) {
             let feld = document.getElementById(zugOptionen[i]);
             feld.setAttribute("style", "background-color:red");
-            feld.addEventListener("click", () => {
-                this.ZugDurchführen(feld);
-                this.RemoveEventListnerVonZugoptionen(zugOptionen); // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
-            });
+            feld.addEventListener("click", this.HandleClickEvent(feld, zugOptionen));
         }
+    }
+
+    HandleClickEvent(feld, zugOptionen = []) {
+        this.ZugDurchführen(feld);
+        this.RemoveEventListnerVonZugoptionen(zugOptionen); // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
     }
 
     // Zug druchführen
@@ -67,7 +70,9 @@ class Figur {
 
     // Entfernt die Cick-Events von den Zugoptionen
     RemoveEventListnerVonZugoptionen(zugOptionen = []) {
-
+        for(let i = 0; i < zugOptionen.length; i++) {
+            document.getElementById(zugOptionen[i]).removeEventListener("click", () => {});
+        }
     }
 }
 
