@@ -2,6 +2,10 @@
 class Figur {
     // Pfad zum Image
     ImgPath = "";
+    // ImageWidth
+    ImgWidth = 0;
+    // ImageHeight
+    ImgHeight = 0;
     // Farbe der Figur
     Color = "";
     // Aktuelle Position auf dem Spiefeld
@@ -17,6 +21,9 @@ class Figur {
         this.ImgPath = imgPath;
         this.AktPos = aktPos;
         this.Index = Figur.ListeAllerErbendenFiguren.push(this);
+        let parrentElement = document.getElementById(this.AktPos);
+        this.ImgWidth = parrentElement.clientWidth;
+        this.ImgHeight = parrentElement.clientHeight;
         this.Show(this.AktPos);
         this.EventListenerSetzten();
     }
@@ -25,9 +32,10 @@ class Figur {
     Show(zielID) {      
         let imgElement = document.createElement("img");
         imgElement.setAttribute("src", this.ImgPath);
+        imgElement.setAttribute("width", this.ImgWidth);
+        imgElement.setAttribute("height", this.ImgHeight);
         let parrentElement = document.getElementById(zielID);
         parrentElement.appendChild(imgElement);
-        parrentElement.querySelector("img").setAttribute("width", parrentElement.clientWidth);
     }
 
     // Setzten den Eventlistener
@@ -44,7 +52,7 @@ class Figur {
             let feld = document.getElementById(zugOptionen[i]);
             feld.setAttribute("style", "background-color:red");
             feld.addEventListener("click", () => {
-                this.ZugDurchführen(feld);// TODO: Methode hinzufügen, die den Zug druchführbar macht
+                this.ZugDurchführen(feld);
                 this.RemoveEventListnerVonZugoptionen(zugOptionen); // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
             });
         }
