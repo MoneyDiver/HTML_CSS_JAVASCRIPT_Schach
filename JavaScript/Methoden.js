@@ -52,11 +52,11 @@ class Figur {
         for(let i = 0; i < zugOptionen.length; i++) {
             let feld = document.getElementById(zugOptionen[i]);
             feld.setAttribute("style", "background-color:red");
-            feld.addEventListener("click", this.HandleClickEvent(feld, zugOptionen));
-        }
+            feld.addEventListener("click", () => this.HandleCLick(feld, zugOptionen));
+        } 
     }
 
-    HandleClickEvent(feld, zugOptionen = []) {
+    HandleCLick = (feld, zugOptionen = []) => {
         this.ZugDurchführen(feld);
         this.RemoveEventListnerVonZugoptionen(zugOptionen); // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
     }
@@ -71,7 +71,7 @@ class Figur {
     // Entfernt die Cick-Events von den Zugoptionen
     RemoveEventListnerVonZugoptionen(zugOptionen = []) {
         for(let i = 0; i < zugOptionen.length; i++) {
-            document.getElementById(zugOptionen[i]).removeEventListener("click", () => {});
+            document.getElementById(zugOptionen[i]).removeEventListener("click", this.HandleCLick);
         }
     }
 }
