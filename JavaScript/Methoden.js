@@ -15,7 +15,8 @@ class Figur {
     // Liste aller erbenden ELemente
     static ListeAllerErbendenFiguren = new Array();
     // Index des aktuellen Elements in dem Array ListeAllerErbendenFiguren
-    Index = 0
+    Index = 0;
+
     constructor(color, imgPath, aktPos) {
         this.color = color;
         this.ImgPath = imgPath;
@@ -49,16 +50,18 @@ class Figur {
 
     // Klickevents bei den Zugoptionen Setzten
     ZugoptionenVerfügbarMachen(zugOptionen = []) {
+        let feldOhneEventlistener = [];
         for(let i = 0; i < zugOptionen.length; i++) {
             let feld = document.getElementById(zugOptionen[i]);
+            feldOhneEventlistener[i] = feld;
             feld.setAttribute("style", "background-color:red");
-            feld.addEventListener("click", () => this.HandleCLick(feld, zugOptionen));
+            feld.addEventListener("click", () => this.HandleCLick(feld, zugOptionen, feldOhneEventlistener));
         } 
     }
 
-    HandleCLick = (feld, zugOptionen = []) => {
+    HandleCLick = (feld, zugOptionen = [], feldOhneEventlistener = []) => {
         this.ZugDurchführen(feld);
-        this.RemoveEventListnerVonZugoptionen(zugOptionen); // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
+        this.RemoveEventListnerVonZugoptionen(zugOptionen, feldOhneEventlistener); // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
     }
 
     // Zug druchführen
@@ -69,9 +72,9 @@ class Figur {
     }   
 
     // Entfernt die Cick-Events von den Zugoptionen
-    RemoveEventListnerVonZugoptionen(zugOptionen = []) {
+    RemoveEventListnerVonZugoptionen(zugOptionen = [], feldOhneEventlistener = []) {
         for(let i = 0; i < zugOptionen.length; i++) {
-            document.getElementById(zugOptionen[i]).removeEventListener("click", this.HandleCLick);
+            document.getElementById(zugOptionen[i]).parentNode.replaceChild(feldOhneEventlistener[i], document.getElementById(zugOptionen[i]));
         }
     }
 }
