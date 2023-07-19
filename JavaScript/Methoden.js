@@ -53,28 +53,28 @@ class Figur {
         let feldOhneEventlistener = [];
         for(let i = 0; i < zugOptionen.length; i++) {
             let feld = document.getElementById(zugOptionen[i]);
-            feldOhneEventlistener[i] = feld;
             feld.setAttribute("style", "background-color:red");
-            feld.addEventListener("click", () => this.HandleCLick(feld, zugOptionen, feldOhneEventlistener));
+            feldOhneEventlistener[i] = feld.cloneNode(true);
+            feld.addEventListener("click", () => {
+                this.RemoveEventListnerVonZugoptionen(zugOptionen, feldOhneEventlistener);
+                this.ZugDurchführen(feld);
+            });
         } 
-    }
-
-    HandleCLick = (feld, zugOptionen = [], feldOhneEventlistener = []) => {
-        this.ZugDurchführen(feld);
-        this.RemoveEventListnerVonZugoptionen(zugOptionen, feldOhneEventlistener); // TODO: Methode hinzufügen, die die Zugoptionen wiederruft
     }
 
     // Zug druchführen
     ZugDurchführen(feld) {
+        let figur = document.getElementById(this.AktPos).cloneNode(true);
         document.getElementById(this.AktPos).removeChild(document.getElementById(this.AktPos).firstChild);
         this.AktPos = feld.id;
-        feld.appendChild(this.Show(this.AktPos));
+        feld.parentNode.replaceChild(figur, feld);
     }   
 
     // Entfernt die Cick-Events von den Zugoptionen
     RemoveEventListnerVonZugoptionen(zugOptionen = [], feldOhneEventlistener = []) {
         for(let i = 0; i < zugOptionen.length; i++) {
-            document.getElementById(zugOptionen[i]).parentNode.replaceChild(feldOhneEventlistener[i], document.getElementById(zugOptionen[i]));
+            let feld = document.getElementById(zugOptionen[i]);
+            feld.parentNode.replaceChild(feldOhneEventlistener[i], feld);
         }
     }
 }
