@@ -1,4 +1,6 @@
-//#region Classes
+const SpiefeldFelder = [];
+
+//#region Klasse-Figur
 class Figur {
     // Pfad zum Image
     ImgPath = "";
@@ -43,6 +45,7 @@ class Figur {
     // Setzten den Eventlistener
     EventListenerSetzten() {
         document.getElementById(this.AktPos).firstChild.addEventListener("click", () => {
+            this.RemoveAllEventListner();
             let zugOptionen = this.ErmittleZugoptionen();
             this.ZugoptionenVerfügbarMachen(zugOptionen);
         });
@@ -60,15 +63,7 @@ class Figur {
                 this.ZugDurchführen(feld);
             });
         } 
-    }
-
-    // Zug druchführen
-    ZugDurchführen(feld) {
-        let figur = document.getElementById(this.AktPos).cloneNode(true);
-        document.getElementById(this.AktPos).removeChild(document.getElementById(this.AktPos).firstChild);
-        this.AktPos = feld.id;
-        feld.parentNode.replaceChild(figur, feld);
-    }   
+    }  
 
     // Entfernt die Cick-Events von den Zugoptionen
     RemoveEventListnerVonZugoptionen(zugOptionen = [], feldOhneEventlistener = []) {
@@ -77,8 +72,18 @@ class Figur {
             feld.parentNode.replaceChild(feldOhneEventlistener[i], feld);
         }
     }
-}
 
+    RemoveAllEventListner() {
+        SpiefeldFelder.forEach(feld => {
+            let feldAlt = document.getElementById(feld.id);
+            if(!feldAlt.hasChildNodes()) {
+                feldAlt.parentNode.replaceChild(feld, feldAlt);
+            }
+        });
+    }
+}
+//#endregion
+//#region Klasse-Turm
 class Turm extends Figur{
     constructor(color, imgPath, aktPos) {
         super(color, imgPath, aktPos);
@@ -173,10 +178,18 @@ class Turm extends Figur{
 
         return möglicheZüge;
     }
+
+    // Zug druchführen
+    ZugDurchführen(feld) {
+        document.getElementById(this.AktPos).removeChild(document.getElementById(this.AktPos).firstChild);
+        new Turm(this.Color, this.ImgPath, feld.id);
+    } 
 }
 //#endregion
 
+//#region Spiefeld
 function SpielfeldErzeugen(id) {
+    let index = 0;
     let spielfeld = document.getElementById(id);
     let table = document.createElement("tabel");
     table.setAttribute("id", "tblSpiefeld")
@@ -194,6 +207,8 @@ function SpielfeldErzeugen(id) {
             if(c % 2 != 0 && r % 2 == 0)
                 col.setAttribute("style", "background-color: darkgray");
             row.appendChild(col);
+
+            SpiefeldFelder[index++] = col.cloneNode();
         }
         table.appendChild(row);
     }
@@ -202,6 +217,7 @@ function SpielfeldErzeugen(id) {
 window.addEventListener("DOMContentLoaded", function() {
     let Figuren = [new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc0"), new Turm("Weiß", "/Figuren/TurmWeiss.png", "sfr0sfc7")];
 });
+//#endregion
 
 // function FigurenSetzten() {
 //     for(let r = 0; r < 8; r++) {
