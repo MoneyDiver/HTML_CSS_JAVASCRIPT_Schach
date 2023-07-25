@@ -113,7 +113,7 @@ class Turm extends Figur{
             }
         }
         // Nach links prüfen
-        for (let c = Number(this.AktPos[7]) - 1; c > 0; c--) {
+        for (let c = Number(this.AktPos[7]) - 1; c >= 0; c--) {
             let id = "sfr" + this.AktPos[3] + "sfc" + c;
             let eintragBereitsGefunden = false;
             for (let i = 0; i < Figur.ListeAllerErbendenFiguren.length; i++) {
@@ -155,7 +155,7 @@ class Turm extends Figur{
             }
         }
         // Nach Open prüfen
-        for (let r = Number(this.AktPos[3]) - 1; r > 0; r--) {
+        for (let r = Number(this.AktPos[3]) - 1; r >= 0; r--) {
             let id = "sfr" + r + "sfc" + this.AktPos[7];
             let eintragBereitsGefunden = false;
             for (let i = 0; i < Figur.ListeAllerErbendenFiguren.length; i++) {
