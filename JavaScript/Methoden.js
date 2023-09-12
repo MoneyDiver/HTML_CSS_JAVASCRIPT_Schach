@@ -1,5 +1,4 @@
 const SpiefeldFelder = [];
-
 //#region Klasse-Figur
 class Figur {
     // Pfad zum Image
